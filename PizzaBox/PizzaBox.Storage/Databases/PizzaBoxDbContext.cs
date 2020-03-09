@@ -28,14 +28,14 @@ namespace PizzaBox.Storage.Databases
       .HasForeignKey<Size>(s => s.SizeId);
 
       builder.Entity<PizzaTopping>()
-            .HasOne(pt => pt.Post)
-            .WithMany(p => p.PostTags)
-            .HasForeignKey(pt => pt.PostId);
+            .HasOne(pt => pt.Pizza)
+            .WithMany(p => p.PizzaToppings)
+            .HasForeignKey(pt => pt.PizzaId);
 
       builder.Entity<PizzaTopping>()
-            .HasOne(pt => pt.Tag)
-            .WithMany(t => t.PostTags)
-            .HasForeignKey(pt => pt.TagId);
+            .HasOne(pt => pt.Topping)
+            .WithMany(t => t.PizzaToppings)
+            .HasForeignKey(pt => pt.ToppingId);
     }
 
     // protected override void OnModelCreating(ModelBuilder builder)

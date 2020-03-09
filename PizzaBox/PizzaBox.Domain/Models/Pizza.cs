@@ -10,14 +10,9 @@ namespace PizzaBox.Domain.Models
 
     public Crust Crust { get; set; }
     public Size Size { get; set; }
-    public virtual List<Topping> Toppings { get; set; }
+    public List<PizzaTopping> PizzaToppings { get; set; }
 
     #endregion
-
-    public Pizza()
-    {
-      this.Toppings = new List<Topping>();
-    }
 
   }
 }
