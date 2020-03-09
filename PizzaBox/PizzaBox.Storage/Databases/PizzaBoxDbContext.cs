@@ -15,7 +15,7 @@ namespace PizzaBox.Storage.Databases
       builder.UseSqlServer("server=localhost;database=pizzaboxdb;user id=sa;password=Password12345;");
     }
 
-
+    
 
   }
 }

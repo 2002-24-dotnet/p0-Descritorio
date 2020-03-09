@@ -6215,7 +6215,7 @@
       "NETStandard.Library >= 2.0.3",
       "PizzaBox.Domain >= 1.0.0",
       "microsoft.entityframeworkcore.design >= 3.1.2",
-      "microsoft.entityframeworkcore.sqlserver"
+      "microsoft.entityframeworkcore.sqlserver >= 3.1.2"
     ]
   },
   "packageFolders": {
@@ -6271,7 +6271,7 @@
           },
           "microsoft.entityframeworkcore.sqlserver": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[3.1.2, )"
           }
         },
         "imports": [
