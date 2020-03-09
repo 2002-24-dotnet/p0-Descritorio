@@ -1,0 +1,6 @@
+## dotnet
+bin/
+obj/
+1_csharp/.DS_Store
+.DS_Store
+.vscode
