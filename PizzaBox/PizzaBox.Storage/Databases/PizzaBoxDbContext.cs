@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using PizzaBox.Domain.Models;
+
 namespace PizzaBox.Storage.Databases
 {
   public class PizzaBoxDbContext : DbContext
