@@ -9,7 +9,7 @@ namespace PizzaBox.Domain.Abstracts
 
     #region NAVIGATIONAL PROPERTIES
 
-    public Pizza Pizza { get; set; }
+    public virtual Pizza Pizza { get; set; }
 
     #endregion
   }

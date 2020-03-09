@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storage.Databases;
@@ -11,34 +12,21 @@ namespace PizzaBox.Client
         {
           using (var db = new PizzaBoxDbContext())
           {
-            // // Create
-            // Console.WriteLine("Inserting a new pizza");
-            // db.Add(new Pizza());
-            // db.SaveChanges();
+            var pizza = new Pizza() {PizzaId = 1};
+            var size = new Size() {Name = "SomeSize"};
+            var toppingA = new Topping() {Name = "Apple"};
+            var toppingB = new Topping() {Name = "Banana"};
 
-            // // Read
-            // Console.WriteLine("Querying for a pizza");
-            // var pizza = db.Pizza
-            //     .OrderBy(b => b.PizzaId == 1)
-            //     .First();
+            pizza.Crust.Name = "SomeCrust";
+            pizza.Size.Name = "SomeSize";
+            pizza.Toppings.Add(toppingA);
+            pizza.Toppings.Add(toppingB);
 
-            // // Update
-            // Console.WriteLine("Updating the pizza by changing TestId");
-            // pizza.TestId = 50;
-            // pizza.Posts.Add(
-            //     new Post
-            //     {
-            //         Title = "San Diego",
-            //         Content = "Coffeeeeeee."
-            //     });
-            // db.SaveChanges();
+            db.Pizza.Add(pizza);
+            db.SaveChanges();
 
-            // var pizzas = db.Pizza.ToList();
-            // foreach (var item in pizzas)
-            // {
-            //   Console.WriteLine(item.PizzaId);
-            //   Console.WriteLine(item.TestId);
-            // }
+
+
           }
         }
     }
