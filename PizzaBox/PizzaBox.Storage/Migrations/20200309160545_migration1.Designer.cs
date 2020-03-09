@@ -9,8 +9,8 @@ using PizzaBox.Storage.Databases;
 namespace PizzaBox.Storage.Migrations
 {
     [DbContext(typeof(PizzaBoxDbContext))]
-    [Migration("20200309143511_firstmigration")]
-    partial class firstmigration
+    [Migration("20200309160545_migration1")]
+    partial class migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,9 @@ namespace PizzaBox.Storage.Migrations
 
                     b.Property<long>("PizzaId")
                         .HasColumnType("bigint");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("CrustId");
 
@@ -69,6 +72,9 @@ namespace PizzaBox.Storage.Migrations
                     b.Property<long>("PizzaId")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("SizeId");
 
                     b.HasIndex("PizzaId")
@@ -89,6 +95,9 @@ namespace PizzaBox.Storage.Migrations
 
                     b.Property<long>("PizzaId")
                         .HasColumnType("bigint");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ToppingId");
 

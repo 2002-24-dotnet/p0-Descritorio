@@ -2,7 +2,7 @@
 
 namespace PizzaBox.Storage.Migrations
 {
-    public partial class firstmigration : Migration
+    public partial class migration6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,7 @@ namespace PizzaBox.Storage.Migrations
                     CrustId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
                     PizzaId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -46,6 +47,7 @@ namespace PizzaBox.Storage.Migrations
                     SizeId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
                     PizzaId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -66,6 +68,7 @@ namespace PizzaBox.Storage.Migrations
                     ToppingId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
                     PizzaId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
