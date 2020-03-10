@@ -11,7 +11,7 @@ namespace PizzaBox.Storing.Repositories
     private static readonly PizzaBoxDbContext _db = new PizzaBoxDbContext();
     public List<Crust> GetCrusts()
     {
-      return _db.CrustDbSet.Include(c => c.CrustId).Include(c => c.Name).ToList();
+      return _db.CrustDbSet.ToList();
     }
   }
 }

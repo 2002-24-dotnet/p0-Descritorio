@@ -10,7 +10,7 @@ using PizzaBox.Storing.Databases;
 namespace PizzaBox.Storing.Migrations
 {
     [DbContext(typeof(PizzaBoxDbContext))]
-    [Migration("20200310030959_m1")]
+    [Migration("20200310031935_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,52 @@ namespace PizzaBox.Storing.Migrations
                 .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PizzaBox.Domain.OrderModels.Order", b =>
+                {
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Date")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StoreId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("StoreId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OrderDbSet");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1L,
+                            Date = 637193891747977610L,
+                            StoreId = 3L,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            OrderId = 2L,
+                            Date = 637193891747979310L,
+                            StoreId = 2L,
+                            UserId = 2L
+                        },
+                        new
+                        {
+                            OrderId = 3L,
+                            Date = 637193891747979350L,
+                            StoreId = 1L,
+                            UserId = 3L
+                        });
+                });
 
             modelBuilder.Entity("PizzaBox.Domain.PizzaModels.Crust", b =>
                 {
@@ -62,6 +108,9 @@ namespace PizzaBox.Storing.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("OrderId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("SizeId")
                         .HasColumnType("bigint");
 
@@ -69,9 +118,11 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasIndex("CrustId");
 
+                    b.HasIndex("OrderId");
+
                     b.HasIndex("SizeId");
 
-                    b.ToTable("Pizza");
+                    b.ToTable("PizzaDbSet");
 
                     b.HasData(
                         new
@@ -103,7 +154,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasIndex("ToppingId");
 
-                    b.ToTable("PizzaTopping");
+                    b.ToTable("PizzaToppingDbSet");
 
                     b.HasData(
                         new
@@ -183,11 +234,96 @@ namespace PizzaBox.Storing.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PizzaBox.Domain.StoreModels.Store", b =>
+                {
+                    b.Property<long>("StoreId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("StoreAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StoreId");
+
+                    b.ToTable("StoreDbSet");
+
+                    b.HasData(
+                        new
+                        {
+                            StoreId = 1L,
+                            StoreAddress = "Street 1"
+                        },
+                        new
+                        {
+                            StoreId = 2L,
+                            StoreAddress = "Street 2"
+                        },
+                        new
+                        {
+                            StoreId = 3L,
+                            StoreAddress = "Street 3"
+                        });
+                });
+
+            modelBuilder.Entity("PizzaBox.Domain.UserModels.User", b =>
+                {
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserDbSet");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1L,
+                            FirstName = "Bob",
+                            LastName = "Builder"
+                        },
+                        new
+                        {
+                            UserId = 2L,
+                            FirstName = "Fred",
+                            LastName = "Flintstone"
+                        },
+                        new
+                        {
+                            UserId = 3L,
+                            FirstName = "Cat",
+                            LastName = "Kansas"
+                        });
+                });
+
+            modelBuilder.Entity("PizzaBox.Domain.OrderModels.Order", b =>
+                {
+                    b.HasOne("PizzaBox.Domain.StoreModels.Store", "Store")
+                        .WithMany("Orders")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PizzaBox.Domain.UserModels.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PizzaBox.Domain.PizzaModels.Pizza", b =>
                 {
                     b.HasOne("PizzaBox.Domain.PizzaModels.Crust", "Crust")
                         .WithMany("Pizzas")
                         .HasForeignKey("CrustId");
+
+                    b.HasOne("PizzaBox.Domain.OrderModels.Order", null)
+                        .WithMany("Pizzas")
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("PizzaBox.Domain.PizzaModels.Size", "Size")
                         .WithMany("Pizzas")

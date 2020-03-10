@@ -11,8 +11,7 @@ namespace PizzaBox.Storing.Repositories
     private static readonly PizzaBoxDbContext _db = new PizzaBoxDbContext();
     public List<Pizza> GetPizzas()
     {
-      PizzaBoxDbContext PizzaBoxDbContext = new PizzaBoxDbContext();
-      return _db.PizzaDbSet.Include(p => p.PizzaId).Include(p => p.Name).Include(p => p.Crust.CrustId).Include(p => p.Size.SizeId).ToList();
+      return _db.PizzaDbSet.ToList();
     }
   }
 }

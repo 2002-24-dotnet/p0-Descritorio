@@ -10,8 +10,10 @@ namespace PizzaBox.Client
             PizzaRepository pr = new PizzaRepository();
             foreach (var i in pr.GetPizzas())
             {
-              Console.WriteLine(i.PizzaId);
+              Console.WriteLine(i);
             }
+
+            OrderRepository or = new OrderRepository();
         }
     }
 }
