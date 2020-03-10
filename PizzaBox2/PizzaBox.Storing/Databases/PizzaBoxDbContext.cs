@@ -18,16 +18,6 @@ namespace PizzaBox.Storing.Databases
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-      builder.Entity<Crust>().HasKey(c => c.CrustId);
-      builder.Entity<Pizza>().HasKey(p => p.PizzaId);
-      builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaId, pt.ToppingId });
-      builder.Entity<Size>().HasKey(s => s.SizeId);
-      builder.Entity<Topping>().HasKey(t => t.ToppingId);
-
-      builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
-      builder.Entity<Pizza>().HasMany(p => p.PizzaTopping).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaId);
-      builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size);
-      builder.Entity<Topping>().HasMany(t => t.PizzaTopping).WithOne(pt => pt.Topping).HasForeignKey(pt => pt.ToppingId);
 
       // builder.Entity<PizzaTopping>()
       //   .HasOne(pt => pt.Pizza)
@@ -39,6 +29,9 @@ namespace PizzaBox.Storing.Databases
       //   .WithMany(t => t.PizzaTopping)
       //   .HasForeignKey(pt => pt.ToppingId);
 
+      builder.Entity<Crust>().HasKey(c => c.CrustId);
+      builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
+      builder.Entity<Crust>().Property(c => c.CrustId).ValueGeneratedNever();
       builder.Entity<Crust>().HasData(new Crust[]
       {
         new Crust() { CrustId = 1, Name = "Deep Dish"},
@@ -46,6 +39,9 @@ namespace PizzaBox.Storing.Databases
         new Crust() { CrustId = 3, Name = "Thin Crust"}
       });
 
+      builder.Entity<Pizza>().HasKey(p => p.PizzaId);
+      builder.Entity<Pizza>().HasMany(p => p.PizzaTopping).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaId);
+      builder.Entity<Pizza>().Property(p => p.PizzaId).ValueGeneratedNever();
       builder.Entity<Pizza>().HasData(new Pizza[]
       {
         new Pizza() { PizzaId = 1, Name = "The Dominic"},
@@ -53,6 +49,7 @@ namespace PizzaBox.Storing.Databases
         new Pizza() { PizzaId = 3, Name = "The Enthusiast"},
       });
 
+      builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaId, pt.ToppingId });
       builder.Entity<PizzaTopping>().HasData(new PizzaTopping[]
       {
         new PizzaTopping() { PizzaId = 1, ToppingId = 1},
@@ -60,6 +57,9 @@ namespace PizzaBox.Storing.Databases
         new PizzaTopping() { PizzaId = 3, ToppingId = 1},
       });
 
+      builder.Entity<Size>().HasKey(s => s.SizeId);
+      builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size);
+      builder.Entity<Size>().Property(s => s.SizeId).ValueGeneratedNever();
       builder.Entity<Size>().HasData(new Size[]
       {
         new Size() { SizeId = 1, Name = "Large"},
@@ -67,6 +67,9 @@ namespace PizzaBox.Storing.Databases
         new Size() { SizeId = 3, Name = "Small"},
       });
 
+      builder.Entity<Topping>().HasKey(t => t.ToppingId);
+      builder.Entity<Topping>().HasMany(t => t.PizzaTopping).WithOne(pt => pt.Topping).HasForeignKey(pt => pt.ToppingId);
+      builder.Entity<Topping>().Property(t => t.ToppingId).ValueGeneratedNever();
       builder.Entity<Topping>().HasData(new Topping[]
       {
         new Topping() { ToppingId = 1, Name = "Cheese"},
