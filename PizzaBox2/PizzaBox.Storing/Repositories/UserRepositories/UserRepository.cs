@@ -13,5 +13,24 @@ namespace PizzaBox.Storing.Repositories
     {
       return _ur.UserDbSet.ToList();
     }
+
+    public User Get(long id)
+    {
+      return _ur.UserDbSet.SingleOrDefault(p => p.UserId == id);
+    }
+
+    public bool Post(User user)
+    {
+      _ur.UserDbSet.Add(user);
+      return _ur.SaveChanges() == 1;
+    }
+
+    public bool Put(User user)
+    {
+      User p = Get(user.UserId);
+
+      p = user;
+      return _ur.SaveChanges() == 1;
+    }
   }
 }
