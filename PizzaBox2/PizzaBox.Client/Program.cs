@@ -1,4 +1,5 @@
 ﻿using System;
+using PizzaBox.Domain.PizzaModels;
 using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client
@@ -7,33 +8,41 @@ namespace PizzaBox.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("\nPizza names: ");
-            PizzaRepository pr = new PizzaRepository();
-            foreach (var i in pr.GetPizzas())
-            {
-              Console.WriteLine(i.Name);
-            }
+          PizzaRepository pr = new PizzaRepository();
+          OrderRepository or = new OrderRepository();
+          StoreRepository sr = new StoreRepository();
+          UserRepository ur = new UserRepository();
 
-            Console.WriteLine("\nOrder dates: ");
-            OrderRepository or = new OrderRepository();
-            foreach (var i in or.GetOrders())
-            {
-              Console.WriteLine(i.Date);
-            }
+          // Console.WriteLine("\nPizza names: ");
+          // foreach (var i in pr.GetPizzas())
+          // {
+          //   Console.WriteLine(i.Name);
+          // }
 
-            Console.WriteLine("\nStore addresses: ");
-            StoreRepository sr = new StoreRepository();
-            foreach (var i in sr.GetStores())
-            {
-              Console.WriteLine(i.StoreAddress);
-            }
+          // Console.WriteLine("\nOrder dates: ");
+          // foreach (var i in or.GetOrders())
+          // {
+          //   Console.WriteLine(i.Date);
+          // }
 
-            Console.WriteLine("\nUser first names: ");
-            UserRepository ur = new UserRepository();
-            foreach (var i in ur.GetUsers())
-            {
-              Console.WriteLine(i.FirstName);
-            }
+          // Console.WriteLine("\nStore addresses: ");
+          // foreach (var i in sr.GetStores())
+          // {
+          //   Console.WriteLine(i.StoreAddress);
+          // }
+
+          // Console.WriteLine("\nUser first names: ");
+          // foreach (var i in ur.GetUsers())
+          // {
+          //   Console.WriteLine(i.FirstName);
+          // }
+
+          CrustRepository cr = new CrustRepository();
+          cr.Post(new Crust() 
+          {
+            CrustId = 4, Name = "Cheesy Crust"
+          });
+          
         }
     }
 }
