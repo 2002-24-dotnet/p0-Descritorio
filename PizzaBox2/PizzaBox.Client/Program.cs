@@ -1,5 +1,5 @@
 ﻿using System;
-using PizzaBox.Storing.Repositories;
+using PizzaBox.Storing.Repositories.PizzaRepositories;
 
 namespace PizzaBox.Client
 {
