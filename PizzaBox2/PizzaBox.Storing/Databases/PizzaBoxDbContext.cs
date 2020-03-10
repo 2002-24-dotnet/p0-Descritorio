@@ -73,6 +73,7 @@ namespace PizzaBox.Storing.Databases
         new Topping() { ToppingId = 2, Name = "Pepperoni"},
         new Topping() { ToppingId = 3, Name = "Tomato Sauce"},
       });
+
     }
   }
 }

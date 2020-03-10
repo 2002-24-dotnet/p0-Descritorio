@@ -7,6 +7,7 @@ namespace PizzaBox.Domain.StoreModels
   public class Store
   {
     public long StoreId { get; set; }
+    public string StoreAddress { get; set; }
     
     #region NAVIGATION
     public List<Order> Orders { get; set; }
