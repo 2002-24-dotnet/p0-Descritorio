@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using PizzaBox.Domain.OrderModels;
 using PizzaBox.Domain.PizzaModels;
+using PizzaBox.Domain.StoreModels;
+using PizzaBox.Domain.UserModels;
 
 namespace PizzaBox.Storing.Databases
 {
@@ -7,9 +10,15 @@ namespace PizzaBox.Storing.Databases
   {
     public DbSet<Crust> CrustDbSet { get; set; }
     public DbSet<Pizza> PizzaDbSet { get; set; }
-    public DbSet<Pizza> PizzaToppingDbSet { get; set; }
+    public DbSet<PizzaTopping> PizzaToppingDbSet { get; set; }
     public DbSet<Size> SizeDbSet { get; set; }
     public DbSet<Topping> ToppingDbSet { get; set; }
+
+    public DbSet<Order> OrderDbSet { get; set; }
+    public DbSet<Store> StoreDbSet { get; set; }
+    public DbSet<User> UserDbSet { get; set; }
+
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder modelBuilder)
     {
@@ -29,6 +38,7 @@ namespace PizzaBox.Storing.Databases
       //   .WithMany(t => t.PizzaTopping)
       //   .HasForeignKey(pt => pt.ToppingId);
 
+      #region PIZZA
       builder.Entity<Crust>().HasKey(c => c.CrustId);
       builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
       builder.Entity<Crust>().Property(c => c.CrustId).ValueGeneratedNever();
@@ -76,7 +86,42 @@ namespace PizzaBox.Storing.Databases
         new Topping() { ToppingId = 2, Name = "Pepperoni"},
         new Topping() { ToppingId = 3, Name = "Tomato Sauce"},
       });
+      #endregion
 
+      #region ORDER
+      builder.Entity<Order>().HasKey(o => o.OrderId);
+      builder.Entity<Order>().Property(o => o.OrderId).ValueGeneratedNever();
+      builder.Entity<Order>().HasData(new Order[]
+      {
+        new Order() { OrderId = 1, StoreId = 3, UserId = 1},
+        new Order() { OrderId = 2, StoreId = 2, UserId = 2},
+        new Order() { OrderId = 3, StoreId = 1, UserId = 3},
+      });
+      #endregion
+
+      #region STORE
+      builder.Entity<Store>().HasKey(s => s.StoreId);
+      builder.Entity<Store>().HasMany(u => u.Orders).WithOne(o => o.Store);
+      builder.Entity<Store>().Property(u => u.StoreId).ValueGeneratedNever();
+      builder.Entity<Store>().HasData(new Store[]
+      {
+        new Store() { StoreId = 1, StoreAddress = "Street 1"},
+        new Store() { StoreId = 2, StoreAddress = "Street 2"},
+        new Store() { StoreId = 3, StoreAddress = "Street 3"},
+      });
+      #endregion
+
+      #region USER
+      builder.Entity<User>().HasKey(u => u.UserId);
+      builder.Entity<User>().HasMany(u => u.Orders).WithOne(o => o.User);
+      builder.Entity<User>().Property(u => u.UserId).ValueGeneratedNever();
+      builder.Entity<User>().HasData(new User[]
+      {
+        new User() { UserId = 1, FirstName = "Bob", LastName = "Builder"},
+        new User() { UserId = 2, FirstName = "Fred", LastName = "Flintstone"},
+        new User() { UserId = 3, FirstName = "Cat", LastName = "Kansas"}
+      });
+      #endregion
     }
   }
 }

@@ -10,7 +10,7 @@ using PizzaBox.Storing.Databases;
 namespace PizzaBox.Storing.Migrations
 {
     [DbContext(typeof(PizzaBoxDbContext))]
-    [Migration("20200309234137_m1")]
+    [Migration("20200310030959_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,9 +24,7 @@ namespace PizzaBox.Storing.Migrations
             modelBuilder.Entity("PizzaBox.Domain.PizzaModels.Crust", b =>
                 {
                     b.Property<long>("CrustId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -56,9 +54,7 @@ namespace PizzaBox.Storing.Migrations
             modelBuilder.Entity("PizzaBox.Domain.PizzaModels.Pizza", b =>
                 {
                     b.Property<long>("PizzaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("CrustId")
                         .HasColumnType("bigint");
@@ -75,7 +71,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("PizzaDbSet");
+                    b.ToTable("Pizza");
 
                     b.HasData(
                         new
@@ -108,14 +104,29 @@ namespace PizzaBox.Storing.Migrations
                     b.HasIndex("ToppingId");
 
                     b.ToTable("PizzaTopping");
+
+                    b.HasData(
+                        new
+                        {
+                            PizzaId = 1L,
+                            ToppingId = 1L
+                        },
+                        new
+                        {
+                            PizzaId = 2L,
+                            ToppingId = 1L
+                        },
+                        new
+                        {
+                            PizzaId = 3L,
+                            ToppingId = 1L
+                        });
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.PizzaModels.Size", b =>
                 {
                     b.Property<long>("SizeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -145,9 +156,7 @@ namespace PizzaBox.Storing.Migrations
             modelBuilder.Entity("PizzaBox.Domain.PizzaModels.Topping", b =>
                 {
                     b.Property<long>("ToppingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

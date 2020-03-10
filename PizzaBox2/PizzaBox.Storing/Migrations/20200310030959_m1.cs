@@ -10,8 +10,7 @@ namespace PizzaBox.Storing.Migrations
                 name: "CrustDbSet",
                 columns: table => new
                 {
-                    CrustId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CrustId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -23,8 +22,7 @@ namespace PizzaBox.Storing.Migrations
                 name: "SizeDbSet",
                 columns: table => new
                 {
-                    SizeId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SizeId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -36,8 +34,7 @@ namespace PizzaBox.Storing.Migrations
                 name: "ToppingDbSet",
                 columns: table => new
                 {
-                    ToppingId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ToppingId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -46,26 +43,25 @@ namespace PizzaBox.Storing.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PizzaDbSet",
+                name: "Pizza",
                 columns: table => new
                 {
-                    PizzaId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PizzaId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     CrustId = table.Column<long>(nullable: true),
                     SizeId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PizzaDbSet", x => x.PizzaId);
+                    table.PrimaryKey("PK_Pizza", x => x.PizzaId);
                     table.ForeignKey(
-                        name: "FK_PizzaDbSet_CrustDbSet_CrustId",
+                        name: "FK_Pizza_CrustDbSet_CrustId",
                         column: x => x.CrustId,
                         principalTable: "CrustDbSet",
                         principalColumn: "CrustId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PizzaDbSet_SizeDbSet_SizeId",
+                        name: "FK_Pizza_SizeDbSet_SizeId",
                         column: x => x.SizeId,
                         principalTable: "SizeDbSet",
                         principalColumn: "SizeId",
@@ -83,9 +79,9 @@ namespace PizzaBox.Storing.Migrations
                 {
                     table.PrimaryKey("PK_PizzaTopping", x => new { x.PizzaId, x.ToppingId });
                     table.ForeignKey(
-                        name: "FK_PizzaTopping_PizzaDbSet_PizzaId",
+                        name: "FK_PizzaTopping_Pizza_PizzaId",
                         column: x => x.PizzaId,
-                        principalTable: "PizzaDbSet",
+                        principalTable: "Pizza",
                         principalColumn: "PizzaId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -107,7 +103,7 @@ namespace PizzaBox.Storing.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "PizzaDbSet",
+                table: "Pizza",
                 columns: new[] { "PizzaId", "CrustId", "Name", "SizeId" },
                 values: new object[,]
                 {
@@ -136,14 +132,29 @@ namespace PizzaBox.Storing.Migrations
                     { 3L, "Tomato Sauce" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "PizzaTopping",
+                columns: new[] { "PizzaId", "ToppingId" },
+                values: new object[] { 1L, 1L });
+
+            migrationBuilder.InsertData(
+                table: "PizzaTopping",
+                columns: new[] { "PizzaId", "ToppingId" },
+                values: new object[] { 2L, 1L });
+
+            migrationBuilder.InsertData(
+                table: "PizzaTopping",
+                columns: new[] { "PizzaId", "ToppingId" },
+                values: new object[] { 3L, 1L });
+
             migrationBuilder.CreateIndex(
-                name: "IX_PizzaDbSet_CrustId",
-                table: "PizzaDbSet",
+                name: "IX_Pizza_CrustId",
+                table: "Pizza",
                 column: "CrustId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PizzaDbSet_SizeId",
-                table: "PizzaDbSet",
+                name: "IX_Pizza_SizeId",
+                table: "Pizza",
                 column: "SizeId");
 
             migrationBuilder.CreateIndex(
@@ -158,7 +169,7 @@ namespace PizzaBox.Storing.Migrations
                 name: "PizzaTopping");
 
             migrationBuilder.DropTable(
-                name: "PizzaDbSet");
+                name: "Pizza");
 
             migrationBuilder.DropTable(
                 name: "ToppingDbSet");
