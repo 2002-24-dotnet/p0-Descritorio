@@ -18,9 +18,9 @@ namespace PizzaBox.Storing.Databases
       builder.Entity<Order>().Property(o => o.OrderId).ValueGeneratedNever();
       builder.Entity<Order>().HasData(new Order[]
       {
-        new Order() { OrderId = 1, StoreId = 1, UserId = 1},
+        new Order() { OrderId = 1, StoreId = 3, UserId = 1},
         new Order() { OrderId = 2, StoreId = 2, UserId = 2},
-        new Order() { OrderId = 3, StoreId = 2, UserId = 3},
+        new Order() { OrderId = 3, StoreId = 1, UserId = 3},
       });
     }
   }

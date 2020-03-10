@@ -18,9 +18,9 @@ namespace PizzaBox.Storing.Databases
       builder.Entity<Store>().Property(u => u.StoreId).ValueGeneratedNever();
       builder.Entity<Store>().HasData(new Store[]
       {
-        new Store() { StoreId = 1, StoreAddress = "Cooper 786"},
-        new Store() { StoreId = 2, StoreAddress = "Mitchel 83"},
-        new Store() { StoreId = 3, StoreAddress = "Mesquite 476"},
+        new Store() { StoreId = 1, StoreAddress = "Street 1"},
+        new Store() { StoreId = 2, StoreAddress = "Street 2"},
+        new Store() { StoreId = 3, StoreAddress = "Street 3"},
       });
 
     }
