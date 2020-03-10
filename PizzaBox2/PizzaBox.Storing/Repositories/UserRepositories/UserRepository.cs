@@ -9,7 +9,7 @@ namespace PizzaBox.Storing.Repositories
   {
     private static readonly PizzaBoxDbContext _ur = new PizzaBoxDbContext();
 
-    public List<User> GetStores()
+    public List<User> GetUsers()
     {
       return _ur.UserDbSet.ToList();
     }
