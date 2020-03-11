@@ -12,6 +12,7 @@ namespace PizzaBox.Client
           OrderRepository or = new OrderRepository();
           StoreRepository sr = new StoreRepository();
           UserRepository ur = new UserRepository();
+          CrustRepository cr = new CrustRepository();
 
           // Console.WriteLine("\nPizza names: ");
           // foreach (var i in pr.GetPizzas())
@@ -37,12 +38,16 @@ namespace PizzaBox.Client
           //   Console.WriteLine(i.FirstName);
           // }
 
-          CrustRepository cr = new CrustRepository();
-          cr.Post(new Crust() 
+          // CrustRepository cr = new CrustRepository();
+          // cr.Post(new Crust() 
+          // {
+          //   CrustId = 4, Name = "Cheesy Crust"
+          // });
+
+          foreach (var item in cr.Get())
           {
-            CrustId = 4, Name = "Cheesy Crust"
-          });
-          
+            Console.WriteLine("This is CrustId: {0}; This is CrustName: {1}", item.CrustId, item.Name);
+          }
         }
     }
 }
